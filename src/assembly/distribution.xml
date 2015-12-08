@@ -24,7 +24,7 @@
             <outputDirectory>lib</outputDirectory>
         </file>
         <file>
-            <source>target/classes/iQpdfutil.sh</source>
+            <source>target/classes/iQpdfutil</source>
             <outputDirectory></outputDirectory>
         </file>
     </files>
