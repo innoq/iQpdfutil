@@ -2,7 +2,7 @@
 Utility to concatenate pdfs, inserting empty pages where necessary, and adding page numbers
 
 
-## getting started
+## Getting Started
 
 
 If there is no distribution:
@@ -14,7 +14,7 @@ If there is no distribution:
 
 If you've got a distribution:
 
-1. unzip to a folder
+1. unzip it to a folder
 2. cd into extracted folder iq-pdfutil-VERSION/
 3. chmod 755 iQpdfutil.sh
 
@@ -25,7 +25,7 @@ path, or build a symbolic link from somewhere to the shell-script.
 
 And then ...
 
-## usage
+## Using the pdf-utility
 
 Invoke the script with at least one pdf-file and provide an output-filename:
 
@@ -38,7 +38,11 @@ $ iQpdfutil.sh in1 in2 in3 ... output.pdf
 
 Or, one use-case I often have:
 
+<pre>
+
 $ iQpdfutil.sh "*.pdf" /sometargetpath/complete_with_pagenumbers.pdf
+
+</pre>
 
 
 
