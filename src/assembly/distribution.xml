@@ -25,7 +25,7 @@
             <filtered>true</filtered>
         </file> 
         <file>
-            <source>target/classes/start.sh</source>
+            <source>target/classes/iQpdfutil.sh</source>
             <outputDirectory></outputDirectory>
             <filtered>true</filtered>
         </file>                
