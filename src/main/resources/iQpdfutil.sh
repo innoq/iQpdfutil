@@ -16,7 +16,7 @@ cd "`dirname $PRG`"
 APP_DIR="`pwd -P`"
 cd $CURRENT_DIR
 
-LIB="$APP_DIR/lib"
+LIB_DIR="$APP_DIR/lib"
 CP=$LIB_DIR/itextpdf-5.0.6.jar:$LIB_DIR/bcmail-jdk14-1.38.jar:$LIB_DIR/bcprov-jdk14-1.38.jar:$LIB_DIR/bctsp-jdk14-1.38.jar
 
 java -classpath "$CP" -jar $LIB_DIR/iq-pdfutil-0.1.0-SNAPSHOT.jar $*
