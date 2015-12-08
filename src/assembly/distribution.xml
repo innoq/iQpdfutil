@@ -22,12 +22,10 @@
         <file>
             <source>target/${project.artifactId}-${project.version}.jar</source>
             <outputDirectory>lib</outputDirectory>
-            <filtered>true</filtered>
-        </file> 
+        </file>
         <file>
             <source>target/classes/iQpdfutil.sh</source>
             <outputDirectory></outputDirectory>
-            <filtered>true</filtered>
-        </file>                
+        </file>
     </files>
 </assembly>
