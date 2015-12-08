@@ -167,7 +167,7 @@ public class Main {
                     .reduce( (a,b) -> a + ", " + b);
 
             if ( missingFiles.isPresent() ) {
-                throw new IllegalArgumentException( "These must be existing files: " + missingFiles.get() );
+                throw new IllegalArgumentException( "These files must exist: " + missingFiles.get() );
             }
         }
 
