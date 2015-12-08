@@ -1,3 +1,21 @@
+/**
+ * iQpdfutil -- concat pdfs and add page numbers
+ * <p>
+ * Copyright (C) 2016 innoQ
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.innoq.iQpdfutil;
 
 import com.itextpdf.text.*;
@@ -36,7 +54,7 @@ public class Main {
 
             System.out.println( arguments );
 
-            File tempFile = File.createTempFile( "temp___", ".pdf" , new File( "./" ) );
+            File tempFile = File.createTempFile( "temp___", ".pdf", new File( "./" ) );
 
             try ( OutputStream os = new FileOutputStream( tempFile ) ) {
 
@@ -46,7 +64,7 @@ public class Main {
                 }
             }
 
-            try (OutputStream os = new FileOutputStream( arguments.outputFile ) ) {
+            try ( OutputStream os = new FileOutputStream( arguments.outputFile ) ) {
 
                 numberPages( new PdfReader( tempFile.getName() ), os );
             }
@@ -62,7 +80,7 @@ public class Main {
     public static void concatFiles(Readers readers, OutputStream os) throws DocumentException, IOException {
         Document document = new Document();
 
-        PdfCopy copy = new PdfCopy(document, os );
+        PdfCopy copy = new PdfCopy(document, os);
         document.open();
 
         for ( PdfReader reader : readers ) {
@@ -78,7 +96,7 @@ public class Main {
     private static boolean copyPages(PdfReader reader, PdfCopy copy) throws IOException, BadPdfFormatException {
         int nrOfPagesInCurrentFile = reader.getNumberOfPages();
         for (int page = 0; page < nrOfPagesInCurrentFile; ) {
-            copy.addPage(copy.getImportedPage(reader, ++page));
+            copy.addPage( copy.getImportedPage(reader, ++page) );
         }
 
         final boolean isEmptyPageRequired = nrOfPagesInCurrentFile % 2 == 1;
@@ -89,7 +107,7 @@ public class Main {
         return isEmptyPageRequired;
     }
 
-    private static void numberPages(PdfReader reader, OutputStream os ) throws IOException, DocumentException {
+    private static void numberPages(PdfReader reader, OutputStream os) throws IOException, DocumentException {
 
         PdfStamper stamper = new PdfStamper(reader, os);
 
@@ -108,7 +126,7 @@ public class Main {
         } finally {
             try {
                 stamper.close();
-            } catch (Exception e ) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -135,7 +153,7 @@ public class Main {
             try {
                 return new PdfReader(filename);
             } catch (IOException e) {
-                throw new RuntimeException( e );
+                throw new RuntimeException(e);
             }
         }
 
@@ -157,16 +175,16 @@ public class Main {
                 throw new IllegalArgumentException( "Required arguments: inputFile+ outputFile" );
             }
 
-            this.inputFiles = Arrays.asList( args ).subList(0, args.length -1);
-            this.outputFile = args[args.length -1];
+            this.inputFiles = Arrays.asList(args).subList(0, args.length - 1);
+            this.outputFile = args[args.length - 1];
 
             Optional<String> missingFiles = inputFiles.stream()
                     .map(File::new)
-                    .filter( f-> ! (f.exists() && f.isFile()) )
+                    .filter(f -> !(f.exists() && f.isFile()))
                     .map(File::getName)
-                    .reduce( (a,b) -> a + ", " + b);
+                    .reduce((a, b) -> a + ", " + b);
 
-            if ( missingFiles.isPresent() ) {
+            if (missingFiles.isPresent()) {
                 throw new IllegalArgumentException( "These files must exist: " + missingFiles.get() );
             }
         }

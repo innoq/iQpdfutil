@@ -45,6 +45,14 @@ $ iQpdfutil "*.pdf" /sometargetpath/complete_with_pagenumbers.pdf
 </pre>
 
 
+## License
+
+This tool relies heavily on
+<a href="http://api.itextpdf.com/itext/com/itextpdf/text/pdf/package-summary.html">iText</a>
+and is licenced under <a href="http://www.gnu.org/licenses/agpl-3.0.en.html">APGL v3</a>.
+
+
+
 
 
 
