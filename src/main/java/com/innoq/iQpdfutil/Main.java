@@ -85,13 +85,12 @@ public class Main {
 
         for ( PdfReader reader : readers ) {
 
-            if ( copyPages( reader, copy ) ) {
-                System.out.println("Main.concatFiles -- added empty page!");
-            }
+            copyPages( reader, copy );
         }
 
         document.close();
     }
+
 
     private static boolean copyPages(PdfReader reader, PdfCopy copy) throws IOException, BadPdfFormatException {
         int nrOfPagesInCurrentFile = reader.getNumberOfPages();
@@ -144,8 +143,8 @@ public class Main {
         }
 
         @Override
-        public void close() throws Exception {
-
+        public void close() {
+            inputFiles.forEach(PdfReader::close);
         }
 
 
