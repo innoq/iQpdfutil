@@ -90,6 +90,15 @@ public class Main {
     }
 
 
+    /**
+     * This method produces a new pdf that is written to the output stream.
+     *
+     * <p>
+     *     The newly created pdf contains all the pages of all the provided
+     *     input pdf files in the right order. Where necessary empty pages
+     *     ensure that the pages of every input pdf begin on an odd page.
+     * </p>
+     * */
     public static void concatPDFs(Readers readers, OutputStream os) throws DocumentException, IOException {
         Document document = new Document();
 
@@ -104,6 +113,13 @@ public class Main {
     }
 
 
+    /**
+     * copyPages copies all pages from the input reader into the pdfcopy.
+     * <p>
+     *     If necessary -- that is if the input pdf contains an odd number
+     *     of pages -- this method appends an empty page.
+     * </p>
+     * */
     private static boolean copyPages(PdfReader reader, PdfCopy copy) throws IOException, BadPdfFormatException {
         int nrOfPagesInCurrentFile = reader.getNumberOfPages();
         for (int page = 0; page < nrOfPagesInCurrentFile; ) {
@@ -118,6 +134,24 @@ public class Main {
         return isEmptyPageRequired;
     }
 
+    /**
+     * This method adds a page number to all pages (except the first one)
+     * from the given input pdf and writes the modified pdf to
+     * the output-stream.
+     *
+     * <p>
+     * The page number is placed in the center at the bottom of the page.
+     * </p>
+     *
+     * <pre>
+     *  +-----+
+     *  |     |
+     *  |     |
+     *  |     |
+     *  | -2- |
+     *  +-----+
+     * </pre>
+     * */
     private static void numberPages(PdfReader reader, OutputStream os) throws IOException, DocumentException {
 
         PdfStamper stamper = new PdfStamper(reader, os);
