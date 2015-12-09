@@ -48,7 +48,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-
         try {
             Args arguments = new Args(args);
 
@@ -56,18 +55,8 @@ public class Main {
 
             File tempFile = File.createTempFile( "temp___", ".pdf", new File( "./" ) );
 
-            try ( OutputStream os = new FileOutputStream( tempFile ) ) {
-
-                try ( Readers readers = new Readers( arguments.inputFiles ) ) {
-
-                    concatFiles( readers, os );
-                }
-            }
-
-            try ( OutputStream os = new FileOutputStream( arguments.outputFile ) ) {
-
-                numberPages( new PdfReader( tempFile.getName() ), os );
-            }
+            concatFiles(arguments.inputFiles, tempFile);
+            copyPDFandAddPageNumbers(arguments.outputFile, tempFile);
 
             Files.delete( tempFile.toPath() );
 
@@ -76,15 +65,34 @@ public class Main {
         }
     }
 
+    /**
+     *
+     * */
+    private static void copyPDFandAddPageNumbers(String pdfFilename, File outputFile) throws IOException, DocumentException {
+        try ( OutputStream os = new FileOutputStream( pdfFilename ) ) {
+            numberPages( new PdfReader( outputFile.getName() ), os );
+        }
+    }
 
-    public static void concatFiles(Readers readers, OutputStream os) throws DocumentException, IOException {
+    private static void concatFiles(
+            List<String> inputFilenames, File outputFile)
+            throws IOException, DocumentException
+    {
+        try ( OutputStream os = new FileOutputStream( outputFile ) ) {
+            try ( Readers readers = new Readers( inputFilenames ) ) {
+                concatPDFs( readers, os );
+            }
+        }
+    }
+
+
+    public static void concatPDFs(Readers readers, OutputStream os) throws DocumentException, IOException {
         Document document = new Document();
 
         PdfCopy copy = new PdfCopy(document, os);
         document.open();
 
         for ( PdfReader reader : readers ) {
-
             copyPages( reader, copy );
         }
 
