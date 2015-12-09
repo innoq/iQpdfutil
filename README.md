@@ -9,8 +9,9 @@ Utility to concatenate pdfs, inserting empty pages where necessary, and adding p
 If there is no distribution:
 
 1. clone the repo
-2. run mvn assembly:assembly
-3. take the built distribution from target/iq-pdfutil-VERSION-distribution.zip
+2. run mvn install
+3. run mvn assembly:single
+4. take the built distribution from target/iq-pdfutil-VERSION-distribution.zip
 
 
 If you've got a distribution:
