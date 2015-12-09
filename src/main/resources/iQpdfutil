@@ -12,6 +12,16 @@ PRG="$0"
 
 CURRENT_DIR="`pwd`"
 
+while [ -h "$PRG" ] ; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
+    else
+        PRG=`dirname "$PRG"`"/$link"
+    fi
+done
+
 cd "`dirname $PRG`"
 APP_DIR="`pwd -P`"
 cd $CURRENT_DIR
