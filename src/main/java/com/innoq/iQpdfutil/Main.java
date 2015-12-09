@@ -65,9 +65,11 @@ public class Main {
         }
     }
 
+
     private static File createTempFileIn(String dirname) throws IOException {
         return File.createTempFile( "temp___", ".pdf", new File( dirname ) );
     }
+
 
     /**
      *
@@ -78,6 +80,18 @@ public class Main {
         }
     }
 
+
+    /**
+     * This method takes the filenames of multiple pdf files,
+     * from which their contents are concatenated and stored
+     * into a new pdf file with the given output file.
+     *
+     * @param inputFilenames of pdf files to be concatenated
+     * @param outputFile that will be created/overwritten
+     *
+     * @throws IOException
+     * @throws DocumentException
+     * */
     private static void concatFiles(
             List<String> inputFilenames, File outputFile)
             throws IOException, DocumentException
@@ -133,6 +147,7 @@ public class Main {
 
         return isEmptyPageRequired;
     }
+
 
     /**
      * This method adds a page number to all pages (except the first one)
