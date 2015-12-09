@@ -56,7 +56,7 @@ public class Main {
             File tempFile = File.createTempFile( "temp___", ".pdf", new File( "./" ) );
 
             concatFiles(arguments.inputFiles, tempFile);
-            copyPDFandAddPageNumbers(arguments.outputFile, tempFile);
+            copyPDFandAddPageNumbers(tempFile, arguments.outputFile);
 
             Files.delete( tempFile.toPath() );
 
@@ -68,9 +68,9 @@ public class Main {
     /**
      *
      * */
-    private static void copyPDFandAddPageNumbers(String pdfFilename, File outputFile) throws IOException, DocumentException {
-        try ( OutputStream os = new FileOutputStream( pdfFilename ) ) {
-            numberPages( new PdfReader( outputFile.getName() ), os );
+    private static void copyPDFandAddPageNumbers(File pdfFile, String outputFilename) throws IOException, DocumentException {
+        try ( OutputStream os = new FileOutputStream(outputFilename) ) {
+            numberPages( new PdfReader( pdfFile.getName() ), os );
         }
     }
 
@@ -121,14 +121,15 @@ public class Main {
         try {
             int n = reader.getNumberOfPages();
 
-            PdfContentByte cbq;
+            ColumnText text;
+            PdfContentByte contents;
             Font headerFont = new Font(Font.FontFamily.COURIER, 12, Font.NORMAL);
             for (int i = 2; i <= n; i++) {
-                cbq = stamper.getOverContent(i);
-                ColumnText ct = new ColumnText(cbq);
-                ct.setSimpleColumn(250, 10, 450, 30, 1, Element.ALIGN_CENTER);
-                ct.addElement(new Paragraph("- " + i + " -", headerFont));
-                ct.go();
+                contents = stamper.getOverContent(i);
+                text = new ColumnText(contents);
+                text.setSimpleColumn(250, 10, 450, 30, 1, Element.ALIGN_CENTER);
+                text.addElement(new Paragraph( String.format( "- %d -", i ), headerFont));
+                text.go();
             }
         } finally {
             try {
