@@ -53,7 +53,7 @@ public class Main {
 
             System.out.println( arguments );
 
-            File tempFile = File.createTempFile( "temp___", ".pdf", new File( "./" ) );
+            File tempFile = createTempFileIn( "./" );
 
             concatFiles(arguments.inputFiles, tempFile);
             copyPDFandAddPageNumbers(tempFile, arguments.outputFile);
@@ -63,6 +63,10 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.err.println( e.getMessage() );
         }
+    }
+
+    private static File createTempFileIn(String dirname) throws IOException {
+        return File.createTempFile( "temp___", ".pdf", new File( dirname ) );
     }
 
     /**
@@ -138,7 +142,6 @@ public class Main {
                 e.printStackTrace();
             }
         }
-
     }
 
 
