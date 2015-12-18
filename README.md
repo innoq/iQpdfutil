@@ -44,6 +44,9 @@ $ iQpdfutil "*.pdf" /sometargetpath/complete_with_pagenumbers.pdf
 
 </pre>
 
+## Releases
+
+Find the latest release here: https://github.com/innoq/iQpdfutil/releases/latest
 
 ## License
 
