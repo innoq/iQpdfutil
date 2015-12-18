@@ -27,6 +27,7 @@
         <file>
             <source>target/classes/iQpdfutil</source>
             <outputDirectory></outputDirectory>
+            <fileMode>755</fileMode>
         </file>
     </files>
 </assembly>
