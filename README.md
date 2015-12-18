@@ -18,7 +18,6 @@ If you've got a distribution:
 
 1. unzip it to a folder
 2. cd into extracted folder iq-pdfutil-VERSION/
-3. chmod 755 iQpdfutil
 
 Optional:
 
