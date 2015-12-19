@@ -176,12 +176,15 @@ public class Main {
 
             ColumnText text;
             PdfContentByte contents;
+            Paragraph paragraph;
             Font headerFont = new Font(Font.FontFamily.COURIER, 12, Font.NORMAL);
             for (int i = 2; i <= n; i++) {
                 contents = stamper.getOverContent(i);
                 text = new ColumnText(contents);
-                text.setSimpleColumn(250, 10, 450, 30, 1, Element.ALIGN_CENTER);
-                text.addElement(new Paragraph( String.format( "- %d -", i ), headerFont));
+                text.setSimpleColumn(1, 10, PageSize.A4.getWidth() -1, 30, 1, Element.ALIGN_CENTER);
+                paragraph = new Paragraph( String.format( "- %d -", i ), headerFont);
+                paragraph.setAlignment(Element.ALIGN_CENTER);
+                text.addElement(paragraph);
                 text.go();
             }
         } finally {
