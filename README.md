@@ -5,26 +5,22 @@ Utility to concatenate pdfs, inserting empty pages where necessary, and adding p
 
 ## Getting Started
 
+Fetch the latest release from: https://github.com/innoq/iQpdfutil/releases/latest
 
-If there is no distribution:
+1. unzip it to a folder
+2. cd into extracted folder iq-pdfutil-VERSION/
+3. Integrate it into your environment as you like. E.g. add the new folder to your
+path, or build a symbolic link from somewhere to the shell-script. E.g.: 
+
+  sudo ln -s /usr/local/bin/iQpdfutil iQpdfutil
+
+Build a distribution yourself: 
 
 1. clone the repo
 2. run mvn install
 3. run mvn assembly:single
 4. take the built distribution from target/iq-pdfutil-VERSION-distribution.zip
 
-
-If you've got a distribution:
-
-1. unzip it to a folder
-2. cd into extracted folder iq-pdfutil-VERSION/
-
-Optional:
-
-Integrate it into your environment as you like. E.g. add the new folder to your
-path, or build a symbolic link from somewhere to the shell-script.
-
-And then ...
 
 ## Using the pdf-utility
 
