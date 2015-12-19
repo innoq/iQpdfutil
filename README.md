@@ -12,7 +12,7 @@ Fetch the latest release from: https://github.com/innoq/iQpdfutil/releases/lates
 3. Integrate it into your environment as you like. E.g. add the new folder to your
 path, or build a symbolic link from somewhere to the shell-script. E.g.: 
 
-  sudo ln -s /usr/local/bin/iQpdfutil iQpdfutil
+  sudo ln -s /your-installation-directory/iq-pdfutil-VERSION/iQpdfutil /usr/local/bin/iQpdfutil
 
 Build a distribution yourself: 
 
