@@ -53,21 +53,13 @@ public class Main {
 
             System.out.println( arguments );
 
-            File tempFile = createTempFileIn( "./" );
-
-            concatFiles(arguments.inputFiles, tempFile);
-            copyPDFandAddPageNumbers(tempFile, arguments.outputFile);
-
-            Files.delete( tempFile.toPath() );
-
+            try ( TempFile tempFile = TempFile.createTempFileIn( "./" ) ) {
+                concatFiles(arguments.inputFiles, tempFile.tempFile);
+                copyPDFandAddPageNumbers(tempFile.tempFile, arguments.outputFile);
+            }
         } catch (IllegalArgumentException e) {
             System.err.println( e.getMessage() );
         }
-    }
-
-
-    private static File createTempFileIn(String dirname) throws IOException {
-        return File.createTempFile( "temp___", ".pdf", new File( dirname ) );
     }
 
 
@@ -134,7 +126,7 @@ public class Main {
      *     of pages -- this method appends an empty page.
      * </p>
      * */
-    private static boolean copyPages(PdfReader reader, PdfCopy copy) throws IOException, BadPdfFormatException {
+    private static boolean copyPages(PdfReader reader, PdfCopy copy) throws IOException, DocumentException {
         int nrOfPagesInCurrentFile = reader.getNumberOfPages();
         for (int page = 0; page < nrOfPagesInCurrentFile; ) {
             copy.addPage( copy.getImportedPage(reader, ++page) );
@@ -259,6 +251,39 @@ public class Main {
                     "inputFiles=" + inputFiles +
                     ", outputFile='" + outputFile + '\'' +
                     '}';
+        }
+    }
+
+
+    /**
+     * TempFile is AutoCloseable
+     * When closed, the file is deleted automatically
+     *
+     * @since 2016-04-14
+     *
+     * */
+    private static class TempFile implements AutoCloseable {
+
+        File tempFile;
+
+
+        public static TempFile createTempFileIn(String dirname) throws IOException {
+            return new TempFile(
+                    File.createTempFile(
+                            "temp___",
+                            ".pdf",
+                            new File( dirname ) ) );
+        }
+
+
+        public TempFile(File tempFile) {
+            this.tempFile = tempFile;
+        }
+
+
+        @Override
+        public void close() throws Exception {
+            Files.delete( tempFile.toPath() );;
         }
     }
 }
