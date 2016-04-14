@@ -260,7 +260,6 @@ public class Main {
      * When closed, the file is deleted automatically
      *
      * @since 2016-04-14
-     *
      * */
     private static class TempFile implements AutoCloseable {
 
